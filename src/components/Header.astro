@@ -7,7 +7,7 @@ const isActive = (href: string) =>
   href === '/' ? current === '/' : current.startsWith(href);
 ---
 
-<header class="border-b border-[var(--border)]">
+<header class="border-b border-[var(--borda)]">
   <Container class="flex h-20 items-center justify-between gap-8">
     <a
       href="/"
@@ -24,7 +24,7 @@ const isActive = (href: string) =>
               <a
                 href={item.href}
                 aria-current={isActive(item.href) ? 'page' : undefined}
-                class="text-[var(--text-muted)] transition-colors hover:text-[var(--text)] aria-[current=page]:text-[var(--text)]"
+                class="text-[var(--text-suave)] transition-colors hover:text-[var(--text)] aria-[current=page]:text-[var(--text)]"
               >
                 {item.label}
               </a>

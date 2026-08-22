@@ -1,94 +1,160 @@
 @import 'tailwindcss';
 
 /*
-  ------------------------------------------------------------------
-  TOKENS DE MARCA — Uman Digital
-  ------------------------------------------------------------------
-  Valores PROVISÓRIOS. Toda a identidade visual do site sai daqui:
-  ao aplicar a marca definitiva, troque os valores abaixo e o site
-  inteiro acompanha, sem mexer em componente nenhum.
-  ------------------------------------------------------------------
+  ══════════════════════════════════════════════════════════════════
+  UMAN — TOKENS DE MARCA
+  Fonte: handoff, seção 2. Petróleo/teal do antigo SOUL: DEPRECIADO.
+  ══════════════════════════════════════════════════════════════════
 */
 @theme {
-  /* Escala de neutros */
-  --color-ink-50: oklch(0.985 0 0);
-  --color-ink-100: oklch(0.96 0 0);
-  --color-ink-200: oklch(0.91 0 0);
-  --color-ink-300: oklch(0.83 0 0);
-  --color-ink-400: oklch(0.67 0 0);
-  --color-ink-500: oklch(0.54 0 0);
-  --color-ink-600: oklch(0.43 0 0);
-  --color-ink-700: oklch(0.34 0 0);
-  --color-ink-800: oklch(0.25 0 0);
-  --color-ink-900: oklch(0.17 0 0);
-  --color-ink-950: oklch(0.12 0 0);
+  /* --- Paleta da marca -------------------------------------------- */
+  --color-amber: #f9a901; /* cor principal, do mel ao cobre */
+  --color-pedra: #eeebe6; /* off-white, fundo claro */
+  --color-graf: #282829; /* grafite, texto e fundos escuros */
+  --color-preto: #0a0a0a; /* fundos profundos */
+  --color-branco: #ffffff;
+  --color-cinza: #5c5c5c; /* texto secundário */
 
-  /* Cor de marca — placeholder até a identidade ser definida */
-  --color-brand-50: oklch(0.97 0.02 250);
-  --color-brand-100: oklch(0.93 0.05 250);
-  --color-brand-200: oklch(0.87 0.09 250);
-  --color-brand-300: oklch(0.78 0.13 250);
-  --color-brand-400: oklch(0.68 0.17 250);
-  --color-brand-500: oklch(0.59 0.2 250);
-  --color-brand-600: oklch(0.51 0.19 250);
-  --color-brand-700: oklch(0.43 0.16 250);
-  --color-brand-800: oklch(0.36 0.13 250);
-  --color-brand-900: oklch(0.29 0.1 250);
+  /*
+    Âmbar profundo. Mesmo matiz do âmbar da marca (40,6°), escurecido
+    até passar AA sobre fundo claro. O âmbar puro rende só 1,65:1 sobre
+    pedra — ilegível como texto. Este rende 4,59:1 sobre pedra e 5,45:1
+    sobre branco. Usar SEMPRE que o âmbar for texto sobre fundo claro;
+    o âmbar puro segue para superfícies, CTAs e texto sobre escuro.
+  */
+  --color-amber-deep: #8e6101;
 
-  /* Tipografia — trocar pelas fontes da marca */
-  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, -apple-system,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  --font-display: var(--font-sans);
-  --font-mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  /* Degradês de apoio, derivados do âmbar */
+  --color-amber-100: #fdf0d1;
+  --color-amber-300: #fcd07a;
+  --color-amber-600: #d18f01;
 
-  /* Ritmo vertical e larguras de leitura */
-  --spacing-section: 6rem;
-  --spacing-section-lg: 9rem;
-  --container-content: 46rem;
-  --container-wide: 80rem;
+  /* --- Tipografia -------------------------------------------------- */
+  --font-display: 'Quicksand', ui-rounded, 'Segoe UI', system-ui, sans-serif;
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
 
-  /* Movimento */
-  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  /* --- Ritmo ------------------------------------------------------- */
+  --spacing-dobra: 7rem;
+  --spacing-dobra-lg: 11rem;
+  --container-leitura: 44rem;
+  --container-largo: 82rem;
+
+  /* --- Movimento ---------------------------------------------------
+     Tokens únicos de duração e easing: toda animação do site sai daqui,
+     para o movimento ter um ritmo só. */
+  --ease-saida: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-entrada: cubic-bezier(0.4, 0, 0.2, 1);
+  --dur-rapida: 180ms;
+  --dur-media: 340ms;
+  --dur-lenta: 620ms;
+
+  /* --- Camadas ----------------------------------------------------- */
+  --z-filme: 0;
+  --z-conteudo: 10;
+  --z-nav: 40;
+  --z-loading: 100;
 }
 
 /*
-  ------------------------------------------------------------------
-  SEMÂNTICA DE TEMA
-  ------------------------------------------------------------------
-  Os componentes consomem estas variáveis, nunca os tokens brutos.
-  É o que permite tema claro e escuro sem duplicar classe.
-  ------------------------------------------------------------------
+  ══════════════════════════════════════════════════════════════════
+  SEMÂNTICA
+  Componentes consomem SÓ estas variáveis, nunca os tokens brutos.
+  A home alterna dobras claras e escuras sobre o filme: por isso o
+  tema é por seção (data-tema), não global.
+  ══════════════════════════════════════════════════════════════════
 */
 @layer base {
-  :root {
-    --surface: var(--color-ink-50);
-    --surface-raised: white;
-    --surface-sunken: var(--color-ink-100);
-    --text: var(--color-ink-900);
-    --text-muted: var(--color-ink-600);
-    --border: var(--color-ink-200);
-    --accent: var(--color-brand-600);
-    --accent-contrast: white;
+  :root,
+  [data-tema='claro'] {
+    --surface: var(--color-pedra);
+    --surface-alta: var(--color-branco);
+    --text: var(--color-graf);
+    --text-suave: var(--color-cinza);
+    --borda: color-mix(in oklab, var(--color-graf) 14%, transparent);
+
+    /* Âmbar como TEXTO precisa da variante profunda em fundo claro */
+    --accent-texto: var(--color-amber-deep);
+    /* Âmbar como SUPERFÍCIE (CTA, filete, ícone cheio) usa o puro */
+    --accent: var(--color-amber);
+    --accent-sobre: var(--color-graf);
+
+    /* Painel de vidro sobre o filme (handoff, seção 4) */
+    --vidro-fundo: color-mix(in oklab, var(--color-pedra) 82%, transparent);
+    --vidro-borda: color-mix(in oklab, var(--color-branco) 50%, transparent);
   }
 
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --surface: var(--color-ink-950);
-      --surface-raised: var(--color-ink-900);
-      --surface-sunken: var(--color-ink-900);
-      --text: var(--color-ink-50);
-      --text-muted: var(--color-ink-400);
-      --border: var(--color-ink-800);
-      --accent: var(--color-brand-400);
-      --accent-contrast: var(--color-ink-950);
-    }
+  [data-tema='escuro'] {
+    --surface: var(--color-graf);
+    --surface-alta: color-mix(in oklab, var(--color-graf) 84%, var(--color-branco));
+    --text: var(--color-pedra);
+    --text-suave: color-mix(in oklab, var(--color-pedra) 68%, var(--color-graf));
+    --borda: color-mix(in oklab, var(--color-pedra) 18%, transparent);
+
+    /* Sobre escuro o âmbar puro rende 7,51:1 — usar ele mesmo */
+    --accent-texto: var(--color-amber);
+    --accent: var(--color-amber);
+    --accent-sobre: var(--color-graf);
+
+    --vidro-fundo: color-mix(in oklab, var(--color-preto) 62%, transparent);
+    --vidro-borda: color-mix(in oklab, var(--color-branco) 14%, transparent);
+  }
+
+  [data-tema='profundo'] {
+    --surface: var(--color-preto);
+    --surface-alta: var(--color-graf);
+    --text: var(--color-pedra);
+    --text-suave: color-mix(in oklab, var(--color-pedra) 62%, var(--color-preto));
+    --borda: color-mix(in oklab, var(--color-pedra) 14%, transparent);
+    --accent-texto: var(--color-amber);
+    --accent: var(--color-amber);
+    --accent-sobre: var(--color-preto);
+    --vidro-fundo: color-mix(in oklab, var(--color-preto) 70%, transparent);
+    --vidro-borda: color-mix(in oklab, var(--color-branco) 12%, transparent);
   }
 
   html {
-    scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
   }
 
+  body {
+    background-color: var(--surface);
+    color: var(--text);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+
+  ::selection {
+    background-color: var(--color-amber);
+    color: var(--color-graf);
+  }
+
+  /*
+    Reduced motion. Obrigatório pelo handoff e pelas guidelines: o
+    scroll-scrubbing e as entradas de objeto são desligados, e o
+    conteúdo é entregue no estado final, legível.
+  */
   @media (prefers-reduced-motion: reduce) {
     html {
       scroll-behavior: auto;
@@ -99,26 +165,44 @@
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+    [data-anima] {
+      opacity: 1 !important;
+      transform: none !important;
     }
   }
+}
 
-  body {
-    background-color: var(--surface);
-    color: var(--text);
-    font-family: var(--font-sans);
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
+@layer components {
+  /* Eyebrow: IBM Plex Mono, caixa alta, tracking largo (handoff §2) */
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent-texto);
   }
 
-  /* Foco visível e consistente para navegação por teclado */
-  :focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-    border-radius: 2px;
+  /* Painel de vidro para texto sobre o filme (handoff §4) */
+  .vidro {
+    background-color: var(--vidro-fundo);
+    border: 1px solid var(--vidro-borda);
+    backdrop-filter: blur(16px) saturate(1.1);
+    -webkit-backdrop-filter: blur(16px) saturate(1.1);
+    border-radius: 1.25rem;
   }
 
-  ::selection {
-    background-color: var(--accent);
-    color: var(--accent-contrast);
+  /*
+    Estado inicial das entradas de objeto. O GSAP anima para o estado
+    final; sem JS, ou com reduced-motion, o conteúdo aparece normal —
+    nunca some para quem não executa script (exigência de SEO).
+  */
+  [data-anima] {
+    opacity: 1;
+  }
+  html.js-pronto [data-anima] {
+    opacity: 0;
   }
 }

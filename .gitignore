@@ -61,3 +61,12 @@ desktop.ini
 .idea/
 *.swp
 *.swo
+
+# Vídeo master e insumos de produção (nunca versionar)
+# Os frames gerados em public/filme/ SÃO versionados; o master não.
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.prores
+video-master/
