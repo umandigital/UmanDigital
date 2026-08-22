@@ -1,0 +1,25 @@
+---
+import Container from '~/components/Container.astro';
+import { site } from '~/config/site';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="mt-auto border-t border-[var(--border)] py-10">
+  <Container class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+    <p class="text-sm text-[var(--text-muted)]">
+      &copy; {year} {site.legalName}. Todos os direitos reservados.
+    </p>
+
+    {
+      site.email && (
+        <a
+          href={`mailto:${site.email}`}
+          class="text-sm text-[var(--text-muted)] transition-colors hover:text-[var(--text)]"
+        >
+          {site.email}
+        </a>
+      )
+    }
+  </Container>
+</footer>

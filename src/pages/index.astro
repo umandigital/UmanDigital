@@ -1,0 +1,50 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import Container from '~/components/Container.astro';
+
+// Página provisória. Substituída pelo conteúdo real assim que a
+// direção visual e o texto do site estiverem definidos.
+const proximosPassos = [
+  'Definir a direção visual a partir das referências',
+  'Aplicar identidade nos tokens de src/styles/global.css',
+  'Escrever a arquitetura de páginas e o conteúdo',
+  'Escolher a hospedagem e configurar o deploy contínuo',
+];
+---
+
+<BaseLayout noindex>
+  <Container width="content" class="py-[var(--spacing-section)]">
+    <p class="text-sm font-medium tracking-widest text-[var(--accent)] uppercase">
+      Em construção
+    </p>
+
+    <h1
+      class="mt-4 font-[family-name:var(--font-display)] text-4xl font-semibold tracking-tight text-balance sm:text-5xl"
+    >
+      Site da Uman Digital
+    </h1>
+
+    <p class="mt-6 text-lg leading-relaxed text-pretty text-[var(--text-muted)]">
+      Estrutura base no ar: Astro com Tailwind, tokens de marca centralizados,
+      SEO e sitemap configurados. O conteúdo e a identidade visual entram nas
+      próximas etapas.
+    </p>
+
+    <h2 class="mt-12 text-sm font-semibold tracking-widest uppercase">
+      Próximos passos
+    </h2>
+
+    <ol class="mt-4 space-y-3">
+      {
+        proximosPassos.map((passo, i) => (
+          <li class="flex gap-4 text-[var(--text-muted)]">
+            <span class="tabular-nums text-[var(--accent)]">
+              {String(i + 1).padStart(2, '0')}
+            </span>
+            <span>{passo}</span>
+          </li>
+        ))
+      }
+    </ol>
+  </Container>
+</BaseLayout>

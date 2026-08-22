@@ -1,0 +1,15 @@
+---
+interface Props {
+  /** `wide` para seções full-bleed, `content` para texto corrido. */
+  width?: 'wide' | 'content';
+  class?: string;
+}
+
+const { width = 'wide', class: className = '' } = Astro.props;
+
+const max = width === 'content' ? 'max-w-[var(--container-content)]' : 'max-w-[var(--container-wide)]';
+---
+
+<div class={`mx-auto w-full ${max} px-6 sm:px-8 ${className}`}>
+  <slot />
+</div>

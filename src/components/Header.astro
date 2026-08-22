@@ -1,0 +1,37 @@
+---
+import Container from '~/components/Container.astro';
+import { site, nav } from '~/config/site';
+
+const current = Astro.url.pathname;
+const isActive = (href: string) =>
+  href === '/' ? current === '/' : current.startsWith(href);
+---
+
+<header class="border-b border-[var(--border)]">
+  <Container class="flex h-20 items-center justify-between gap-8">
+    <a
+      href="/"
+      class="font-[family-name:var(--font-display)] text-lg font-semibold tracking-tight"
+    >
+      {site.name}
+    </a>
+
+    <nav aria-label="Navegação principal">
+      <ul class="flex items-center gap-6 text-sm">
+        {
+          nav.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                aria-current={isActive(item.href) ? 'page' : undefined}
+                class="text-[var(--text-muted)] transition-colors hover:text-[var(--text)] aria-[current=page]:text-[var(--text)]"
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </Container>
+</header>

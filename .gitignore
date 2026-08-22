@@ -4,6 +4,11 @@ vendor/
 .pnp/
 .pnp.js
 
+# Astro build
+.astro/
+.vercel/
+.netlify/
+
 # Build / saída
 dist/
 build/

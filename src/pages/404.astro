@@ -1,0 +1,24 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import Container from '~/components/Container.astro';
+---
+
+<BaseLayout title="Página não encontrada" noindex>
+  <Container width="content" class="py-[var(--spacing-section)]">
+    <p class="text-sm font-medium tracking-widest text-[var(--accent)] uppercase">
+      Erro 404
+    </p>
+    <h1 class="mt-4 text-4xl font-semibold tracking-tight text-balance">
+      Esta página não existe
+    </h1>
+    <p class="mt-6 text-lg text-[var(--text-muted)]">
+      O endereço pode ter mudado ou o link estar incorreto.
+    </p>
+    <a
+      href="/"
+      class="mt-8 inline-block rounded-md bg-[var(--accent)] px-5 py-3 text-sm font-medium text-[var(--accent-contrast)] transition-opacity hover:opacity-90"
+    >
+      Voltar para o início
+    </a>
+  </Container>
+</BaseLayout>
